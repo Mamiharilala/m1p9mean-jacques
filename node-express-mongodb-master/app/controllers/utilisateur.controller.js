@@ -1,38 +1,50 @@
 const db = require("../models");
+//Authentification
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 const Utilisateur = db.utilisateur;
+const Profil = db.profil;
+const paramClient = "client";
+var utilisateurService = require('../services/utilisateur.service');
+// get config vars
+dotenv.config();
+// access config var
+process.env.TOKEN_SECRET;
 
+function generateAccessToken(username) {
+  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+}
+exports.authenticateToken = (req, res, next) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    //if (token == null) return   res.status(401).send({  });
+    //ici la verification du token
+    console.log("Hell0");
+    //if (err) return res.status(403).send({  });
+    next();
+  }
+  catch (error) {
+    next(error)
+  }
+  next();
+}
 
-exports.create = (req, res) => {
+exports.createClient = async function (req, res) {
   const utilisateur = new Utilisateur(req.body);
-  utilisateur
-    .save(utilisateur)
-    .then(data => {
-      res.status(200).send({"data":data});
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Une erreur est survenue lors de la création de l'utilisateur."
-      });
-    });
+  utilisateur.token = generateAccessToken({ username: req.body.prenom });
+  try {
+    await utilisateurService.createClient(utilisateur);
+    res.status(200).send({ data: { token: utilisateur.token }, message: "Client enregistré" });
+  } catch (error) {
+    res.status(500).send({ data: {}, message: "Client non enregistré" });
+  }
 };
 
-//lister toutes les données
-exports.findAll = (req, res) => {
-  if (!req.header('authorization')) {
-    res.status(400).send({ message: "Page introuvable!" });
-    return;
-  }
-  Utilisateur.find({})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Une erreur est survenue lors de la récupération des utilisateurs."
-      });
-    });
+//lister tous les utilisateurs
+exports.findAll = async function (req, res) {
+  let profil = await utilisateurService.getProfil();
+  res.status(200).send({ data: profil });
 };
 
 // Chercher un utilisateur avec un id
@@ -45,7 +57,7 @@ exports.findOne = (req, res) => {
   Utilisateur.findById(id)
     .then(data => {
       if (!data)
-        res.status(404).send({ message: "Utilisateur ayant id " + id +" est introuvable"});
+        res.status(404).send({ message: "Utilisateur ayant id " + id + " est introuvable" });
       else res.send(data);
     })
     .catch(err => {

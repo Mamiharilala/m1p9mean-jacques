@@ -34,9 +34,10 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/utilisateur.routes")(app);
+require("./app/routes/profil.routes")(app);
+require("./app/routes/restaurant.routes")(app);
 
- 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8087;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

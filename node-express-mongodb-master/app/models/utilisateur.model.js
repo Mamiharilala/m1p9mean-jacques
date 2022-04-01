@@ -8,11 +8,11 @@ module.exports = mongoose => {
       date_naissance: Date,
       contact:{ type: String ,required: true },
       email: String,
-      adresse:[],
+      adresse:String,
       id_profil:Schema.Types.ObjectId,
       mot_passe: { type: String ,required: true },
       etat: { type: Boolean ,required: true,default: true},
-      tokens:[]
+      token: String
     },
     { timestamps: true }
   );

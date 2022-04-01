@@ -31,9 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.sass","src/assets/css/mdb.min.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/mdb.min.js"]
           },
           "configurations": {
             "production": {
@@ -98,10 +98,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.sass"
+             "styles": [
+              "src/styles.sass","src/assets/css/mdb.min.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/mdb.min.js"] 
+           
           }
         }
       }
