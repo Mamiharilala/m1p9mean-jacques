@@ -13,6 +13,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RestaurantListeComponent } from './components/restaurant-liste/restaurant-liste.component';
+import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RestaurantListeComponent } from './components/restaurant-liste/restaura
     NavBarComponent,
     FooterComponent,
     HeaderComponent,
-    RestaurantListeComponent
+    RestaurantListeComponent,
+    PlatListeComponent
   ],
   imports: [
     BrowserModule,

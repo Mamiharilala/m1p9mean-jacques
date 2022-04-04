@@ -5,7 +5,7 @@ module.exports = app => {
   
     router.post("/", plat.create);
    
-    //router.get("/", profil.findAll);
+    router.get("/", plat.findAll);
 
     app.use("/api/plat", router);
   };

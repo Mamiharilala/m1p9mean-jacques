@@ -31,3 +31,12 @@ exports.create = async function (req, res) {
     }
 
 };
+exports.findAll = async function (req, res, next) {
+    try {
+        let allRestaurant = await restaurantService.getAllPlat();
+        return res.status(200).json({ status: 200, data: allRestaurant, message: "Succès" });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: e.message });
+    }
+};

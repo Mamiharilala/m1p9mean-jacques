@@ -1,6 +1,7 @@
 const db = require("../models");
 const Profil = db.profil;
 const Utilisateur = db.utilisateur;
+const Plat = db.plat;
 const profilRestaurant = "Restaurant";
 var utilisateurService = require('./utilisateur.service');
 const getProfilRestaurant = async function () {
@@ -33,8 +34,18 @@ const createPlat = async function (plat) {
         throw Error("Erreur d'enregistrement du plat")
     }
 };
+const getAllPlat = async function () {
+    try {
+        var plat = await Plat.find({"etat":true,"visibility":true}).exec();
+        console.log(new Plat({"etat":true,"visibility":true}));
+         return plat;
+    } catch (e) {
+         throw Error("Erreur de recherche de profil");
+    }
+};
 module.exports = {
     createRestaurant,
     getProfilRestaurant,
-    createPlat
+    createPlat,
+    getAllPlat
 };
