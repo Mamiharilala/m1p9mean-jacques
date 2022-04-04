@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RestaurantListeComponent } from './components/restaurant-liste/restaurant-liste.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeaderComponent } from './components/header/header.component';
     CommandeListeComponent,
     NavBarComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    RestaurantListeComponent
   ],
   imports: [
     BrowserModule,

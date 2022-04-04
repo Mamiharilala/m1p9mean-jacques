@@ -77,7 +77,6 @@ exports.createCommande = async function (req, res) {
   if (req.body.quantite&&Number(req.body.quantite) <= 0) res.status(500).json({ message: "La quantité est invalide" });
   try {
       var data = await utilisateurService.createCommande(users[0],plat[0],req.body.quantite);
-      console.log("res commande:"+data);
       res.status(200).send({ message: "Commande enregistré" });
   } catch (error) {
        res.status(500).send({ message: "Commande non enregistré" });

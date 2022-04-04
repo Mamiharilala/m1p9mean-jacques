@@ -7,6 +7,7 @@ module.exports = mongoose => {
             id_plat: { type: Schema.Types.ObjectId , required: true },
             quantite: { type: Number, required: true, default: 1 },
             pu: { type: Number, required: true  },
+            booked: { type: Boolean, required: true, default: false },
             etat: { type: Boolean, required: true, default: true }
         },
         { timestamps: true }
