@@ -57,6 +57,33 @@ exports.login =  async function(req, res) {
     message: "Donnée d'authentification incorrecte"
   });
 };
+
+exports.createCommande = async function (req, res) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+      res.status(400).send({ message: "Page introuvable!" });
+      return;
+  }
+  if (!req.body) {
+      return res.status(400).send({
+          message: "Les données d'inscription sont obligatoire!"
+      });
+  }
+  const token = authHeader && authHeader.split(' ')[1];
+  var users = await utilisateurService.findUser({ token: token });
+  var plat = await utilisateurService.getPlat(req.body.id_plat);
+  if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+  if (plat.length == 0) res.status(500).json({ message: "Plat n'existe pas" });
+  if (req.body.quantite&&Number(req.body.quantite) <= 0) res.status(500).json({ message: "La quantité est invalide" });
+  try {
+      var data = await utilisateurService.createCommande(users[0],plat[0],req.body.quantite);
+      console.log("res commande:"+data);
+      res.status(200).send({ message: "Commande enregistré" });
+  } catch (error) {
+       res.status(500).send({ message: "Commande non enregistré" });
+  }
+};
+
 /*
 
 updateUser

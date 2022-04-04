@@ -5,7 +5,7 @@ module.exports = app => {
 
   router.post("/client",utilisateur.createClient);
   router.post("/login",utilisateur.login);
-
+  router.post("/commande",utilisateur.createCommande);
  
 
   //router.get("/:id", utilisateur.findOne);

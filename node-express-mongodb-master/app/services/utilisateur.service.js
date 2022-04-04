@@ -1,5 +1,7 @@
 const db = require("../models");
 const Profil = db.profil;
+const Plat = db.plat;
+const Commande = db.commande;
 const Utilisateur = db.utilisateur;
 const profilRestaurant = "Restaurant";
 const profilClient = "Client";
@@ -75,11 +77,33 @@ const updateUser = async function(id,user){
     }
 }
 
+const getPlat = async function (id_plat) {
+    try {
+        var plat = await Plat.find(new Plat({_id :id_plat})).exec();
+        return plat;
+    } catch (e) {
+        throw Error("Erreur de recherche de profil")
+    }
+};
 
+const createCommande = async function (utilisateur,plat,quantite) {
+    try {
+        console.log(plat);
+        var commande = new Commande({"id_utilisateur":utilisateur.id,"id_plat" :plat.id,"quantite":quantite,"pu":plat.prixVente});
+        console.log(commande);
+        var commande = await commande.save(commande);
+        return commande;
+    } catch (e) {
+        console.log(e);
+        throw Error("Erreur d'enregistrement de commande")
+    }
+};
 
 module.exports = {
+    createCommande,
     getProfilEkaly,
     getProfil,
+    getPlat,
     updateUser,
     login,
     findUser,
