@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes,RouterModule } from '@angular/router';
-import { EKalyComponent } from './e-kaly/e-kaly.component';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { LoginComponent } from './login/login.component';
-import { CommandeListeComponent } from './commande-liste/commande-liste.component';
+import { EKalyComponent } from './components/e-kaly/e-kaly.component';
+import { LoginComponent } from './components/login/login.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
+import { CommandeListeComponent } from './components/commande-liste/commande-liste.component';
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
     { path: 'commande-liste', component: CommandeListeComponent },

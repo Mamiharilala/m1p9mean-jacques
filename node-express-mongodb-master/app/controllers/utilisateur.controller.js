@@ -1,26 +1,14 @@
 const db = require("../models");
+const sha1 = require('sha1');
 //Authentification
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
 const Utilisateur = db.utilisateur;
-const Profil = db.profil;
-const paramClient = "client";
 var utilisateurService = require('../services/utilisateur.service');
-// get config vars
-dotenv.config();
-// access config var
-process.env.TOKEN_SECRET;
-
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
-}
 exports.authenticateToken = (req, res, next) => {
   try {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     //if (token == null) return   res.status(401).send({  });
     //ici la verification du token
-    console.log("Hell0");
     //if (err) return res.status(403).send({  });
     next();
   }
@@ -31,8 +19,14 @@ exports.authenticateToken = (req, res, next) => {
 }
 
 exports.createClient = async function (req, res) {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
   const utilisateur = new Utilisateur(req.body);
-  utilisateur.token = generateAccessToken({ username: req.body.prenom });
+  utilisateur.mot_passe = sha1(utilisateur.mot_passe); 
+  utilisateur.token =sha1(Date.now());
   try {
     await utilisateurService.createClient(utilisateur);
     res.status(200).send({ data: { token: utilisateur.token }, message: "Client enregistré" });
@@ -41,58 +35,31 @@ exports.createClient = async function (req, res) {
   }
 };
 
-//lister tous les utilisateurs
-exports.findAll = async function (req, res) {
-  let profil = await utilisateurService.getProfil();
-  res.status(200).send({ data: profil });
-};
-
-// Chercher un utilisateur avec un id
-exports.findOne = (req, res) => {
-  const id = req.params.id;
-  if (!req.header('authorization')) {
-    res.status(400).send({ message: "Page introuvable!" });
-    return;
-  }
-  Utilisateur.findById(id)
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Utilisateur ayant id " + id + " est introuvable" });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Erreur de récupération de l'utilisateur ayant id=" + id });
-    });
-};
-
-// Modifier un utilisateur
-exports.update = (req, res) => {
+exports.login =  async function(req, res) {
   if (!req.body) {
     return res.status(400).send({
-      message: "Les données de modification sont obligatoire!"
+      message: "Les données d'authentification sont obligatoire!"
     });
   }
-  if (!req.header('authorization')) {
-    res.status(400).send({ message: "Page introuvable!" });
-    return;
-  }
-  const id = req.params.id;
-  Utilisateur.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: "Ne peut pas modifier l'utilisateur ayant id=${id}. Peut-être l'utilisateur est introuvable!"
-        });
-      } else res.send({ message: "L'utilisateur est modifié" });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Erreur de modifié l'utilisateur ayant id=" + id
-      });
+  const crypt = sha1(req.body.mot_passe);
+  var result = await utilisateurService.login({contact:req.body.contact,mot_passe:crypt});
+  if(result.length>0){
+    let token =  generateAccessToken({ token: Date.now() });
+    await utilisateurService.updateUser(result[0].id,{"token":token});
+    result[0].token = token;
+    var data = await utilisateurService.getProfil(result[0].id_profil);
+    result.profil = data;
+    return res.status(200).send({data:result,profil: result.profil,
+      message: "Succès"
     });
+  }
+  return res.status(500).send({
+    message: "Donnée d'authentification incorrecte"
+  });
 };
+/*
+
+updateUser
 // Supprimer un utilisateur
 exports.delete = (req, res) => {
   const id = req.params.id;
@@ -138,3 +105,4 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
+*/

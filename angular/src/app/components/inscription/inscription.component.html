@@ -1,0 +1,72 @@
+<br />
+<div class="row">
+    <div class="col-xs-4 col-md-4"></div>
+    <div class="col-xs-3 col-md-3">
+        <!-- Card -->
+        <div class="card">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Material form register -->
+                <form [formGroup]="inscriptionForm">
+                    <p class="h4 text-center py-4">Inscription</p>
+                    <div *ngIf="submitted">
+                        <h4>Inscription terminée, Bienvenue</h4>
+                        <button class="btn btn-success">Accueil</button>
+                    </div>
+                    <!-- Material input text -->
+                    <div class="md-form">
+                        <label for="materialFormCardNameEx" class="font-weight-light">Nom</label>
+                        <input type="text" id="materialFormCardNameEx" formControlName="nom" class="form-control">
+                    </div>
+
+                    <div class="md-form">
+                        <label for="materialFormCardNameEx" class="font-weight-light">Pr&eacute;noms</label>
+                        <input type="text" id="materialFormCardNameEx" formControlName="prenom" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="materialFormCardNameEx" class="font-weight-light">Date de naissance</label>
+                        <input type="date" id="materialFormCardNameEx" formControlName="date_naissance"
+                            class="form-control">
+                    </div>
+                    <!-- Material input email -->
+                    <div class="md-form">
+                        <label for="materialFormCardEmailEx" class="font-weight-light">email</label>
+                        <input type="email" id="materialFormCardEmailEx" formControlName="email" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="materialFormCardEmailEx" class="font-weight-light">Contact</label>
+                        <input type="text" id="materialFormCardEmailEx" formControlName="contact" class="form-control">
+                    </div>
+                    <div class="md-form">
+                        <label for="materialFormCardEmailEx" class="font-weight-light">Adresse</label>
+                        <input type="text" id="materialFormCardEmailEx" formControlName="adresse" class="form-control">
+                    </div>
+                    <!-- Material input password -->
+                    <div class="md-form">
+                        <label for="materialFormCardPasswordEx" class="font-weight-light">Mot de passe</label>
+                        <input type="{{typePassword}}" id="materialFormCardPasswordEx" formControlName="mot_passe"
+                            class="form-control">
+                    </div><br>
+                    <div class="md-form">
+                        <input or="materialFormCardPasswordEx" (click)="onClickShowPassword()" class="font-weight-light"
+                            type="checkbox" value="" id="form1Example3" />
+                        <label or="materialFormCardPasswordEx" class="font-weight-light"> Afficher le mot de
+                            passe</label>
+                    </div>
+                    <div class="text-center py-4 mt-3">
+                        <button class="btn btn-cyan" (click)="onSubmitForm()" [disabled]="inscriptionForm.invalid"
+                            type="submit">S'inscrire</button>
+                    </div>
+                </form>
+                <!-- Material form register -->
+
+            </div>
+            <!-- Card body -->
+
+        </div>
+        <!-- Card -->
+
+
+    </div>
+    <div class="col-xs-2 col-md-2"></div>
+</div>

@@ -1,7 +1,9 @@
 const db = require("../models");
 const Profil = db.profil;
+const Utilisateur = db.utilisateur;
 const profilRestaurant = "Restaurant";
-exports.getProfilRestaurant = async function () {
+var utilisateurService = require('./utilisateur.service');
+const getProfilRestaurant = async function () {
     try {
         var profil = await Profil.find({designation: profilRestaurant }).exec();      
         return profil;
@@ -10,4 +12,29 @@ exports.getProfilRestaurant = async function () {
         // Log Errors
         throw Error('Erreur de recherche de restaurant')
     }
+};
+const createRestaurant = async function (utilisateur) {
+    try {
+        const user = new Utilisateur(utilisateur);
+        var profilRestaurant = await utilisateurService.getProfilRestaurant();
+        if(profilRestaurant.length>0){
+            user.id_profil = profilRestaurant[0].id;
+        }
+        return await user.save(user);
+    } catch (e) {
+        throw Error("Erreur d'enregistrement du client")
+    }
+};
+const createPlat = async function (plat) {
+    try {
+        console.log(plat);
+        return await plat.save(plat);
+    } catch (e) {
+        throw Error("Erreur d'enregistrement du plat")
+    }
+};
+module.exports = {
+    createRestaurant,
+    getProfilRestaurant,
+    createPlat
 };
