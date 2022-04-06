@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UtilisateurService } from '../../services/utilisateur.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,11 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   typePassword: string;
-  constructor() { 
+  loginForm!: FormGroup;
+  message: string;
+  constructor(private utilisateurService: UtilisateurService, private formBuilder: FormBuilder, private router: Router) {
     this.typePassword = "password";
+    this.message = "";
   }
 
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      contact: [null, [Validators.required]],
+      mot_passe: [null, [Validators.required]]
+    });
   }
   onClickShowPassword(): void {
     if (this.typePassword == "text") {
@@ -19,5 +28,24 @@ export class LoginComponent implements OnInit {
     } else {
       this.typePassword = "text";
     }
-  } 
+  }
+  onSubmitForm() {
+    console.log(this.loginForm.value);
+    this.utilisateurService.login(this.loginForm.value)
+      .subscribe({
+        next: (res) => {
+          if (res['data']['utilisateur'] && res['data']['profil']) {
+            console.log(res['data']['utilisateur']);
+          }
+          this.router.navigateByUrl("/plat-liste");
+        },
+        error: (e) =>  {
+          this.message = "Donnée d'authentification incorrecte";
+          setTimeout(() => {
+            this.message = "";
+           }, 3000);
+         }
+      });
+
+  }
 }

@@ -11,6 +11,7 @@ const routes: Routes = [
     { path: 'commande-liste', component: CommandeListeComponent },
     { path: 'inscription', component: InscriptionComponent },
     { path: 'login', component: LoginComponent },
+    { path: '', component: LoginComponent },
     { path: 'restaurant-liste', component: RestaurantListeComponent},
     { path: 'plat-liste', component: PlatListeComponent}
 ];

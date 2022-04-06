@@ -39,8 +39,7 @@ export class InscriptionComponent implements OnInit {
     this.utilisateurService.create(this.inscriptionForm.value)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          this.submitted = true;
+           this.submitted = true;
         },
         error: (e) => console.error(e)
       });

@@ -44,12 +44,12 @@ exports.login =  async function(req, res) {
   const crypt = sha1(req.body.mot_passe);
   var result = await utilisateurService.login({contact:req.body.contact,mot_passe:crypt});
   if(result.length>0){
-    let token =  generateAccessToken({ token: Date.now() });
+    let token = sha1(Date.now());
     await utilisateurService.updateUser(result[0].id,{"token":token});
     result[0].token = token;
     var data = await utilisateurService.getProfil(result[0].id_profil);
     result.profil = data;
-    return res.status(200).send({data:result,profil: result.profil,
+    return res.status(200).send({data:{utilisateur:{"token":token},profil: result.profil},
       message: "Succès"
     });
   }

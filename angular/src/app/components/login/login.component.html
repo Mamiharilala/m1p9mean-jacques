@@ -1,43 +1,50 @@
 <br /><br /><br /><br />
-<div class="row">
-    <div class="col-xs-4 col-md-4"></div>
-    <div class="col-xs-3 col-md-3">
-        <!-- Card -->
-        <div class="card">
-            <!-- Card body -->
-            <div class="card-body">
-                <!-- Material form register -->
-                <form>
-                    <p class="h4 text-center py-4">Login</p>
-                    <!-- Material input text -->
-                    <div class="md-form">
-                        <label for="materialFormCardNameEx" class="font-weight-light">Num&eacute;ro</label>
-                        <input type="text" id="materialFormCardNameEx" class="form-control">
-                    </div>
-                    <!-- Material input password -->
-                    <div class="md-form">
-                        <label for="materialFormCardPasswordEx" class="font-weight-light">Mot de passe</label>
-                        <input type="{{typePassword}}" type="password" id="materialFormCardPasswordEx" class="form-control">
-                    </div><br/>
-                    <div class="md-form">
-                        <input or="materialFormCardPasswordEx" (click)="onClickShowPassword()" class="font-weight-light"
-                            type="checkbox" value="" id="form1Example3" />
-                        <label or="materialFormCardPasswordEx" class="font-weight-light"> Afficher le mot de
-                            passe</label>
-                        <a href="" style="float:right">S'inscrire</a>
-                    </div><br />
-                    <div class="text-center py-4 mt-3">
-                        <button class="btn btn-cyan" type="submit">Login</button>
-                    </div>
-                </form>
-                <!-- Material form register -->
+
+<body>
+    <div class="row">
+        <div class="col-xs-4 col-md-4"></div>
+        <div class="col-xs-3 col-md-3">
+            <div class="alert alert-danger" *ngIf="message.length>0" role="alert">
+                {{message}}
+              </div>
+            <!-- Card -->
+            <div class="card">
+                <!-- Card body -->
+                <div class="card-body">
+                    <!-- Material form register -->
+                    <form [formGroup]="loginForm">
+                        <p class="h4 text-center py-4">Login</p>
+                        <!-- Material input text -->
+                        <div class="md-form">
+                            <label for="materialFormCardNameEx" class="font-weight-light">Num&eacute;ro</label>
+                            <input formControlName="contact" type="text" id="materialFormCardNameEx" class="form-control">
+                        </div>
+                        <!-- Material input password -->
+                        <div class="md-form">
+                            <label for="materialFormCardPasswordEx" class="font-weight-light">Mot de passe</label>
+                            <input formControlName="mot_passe" type="{{typePassword}}" type="password" id="materialFormCardPasswordEx"
+                                class="form-control">
+                        </div><br />
+                        <div class="md-form">
+                            <input or="materialFormCardPasswordEx" (click)="onClickShowPassword()"
+                                class="font-weight-light" type="checkbox" value="" id="form1Example3" />
+                            <label or="materialFormCardPasswordEx" class="font-weight-light"> Afficher le mot de
+                                passe</label>
+                            <a routerLink="/inscription" style="float:right">S'inscrire</a>
+                        </div><br />
+                        <div class="text-center py-4 mt-3">
+                            <button (click)="onSubmitForm()" [disabled]="loginForm.invalid" class="btn btn-cyan" type="submit">Login</button>
+                        </div>
+                    </form>
+                    <!-- Material form register -->
+
+                </div>
+                <!-- Card body -->
 
             </div>
-            <!-- Card body -->
+            <!-- Card -->
 
         </div>
-        <!-- Card -->
-
+        <div class="col-xs-2 col-md-2"></div>
     </div>
-    <div class="col-xs-2 col-md-2"></div>
-</div>
+</body>

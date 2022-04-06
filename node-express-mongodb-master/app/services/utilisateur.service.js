@@ -86,14 +86,7 @@ const getPlat = async function (id_plat) {
     }
 };
 
-const getAllPlat = async function () {
-    try {
-        var plat = await Plat.find(new Plat({"etat":true,"visibility":true})).exec();
-        return plat;
-    } catch (e) {
-        throw Error("Erreur de recherche de profil")
-    }
-};
+
 
 const createCommande = async function (utilisateur,plat,quantite) {
     try {
