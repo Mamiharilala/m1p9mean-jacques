@@ -84,6 +84,37 @@ exports.createCommande = async function (req, res) {
     res.status(200).send({ message: "Commande non enregistré" });
   }
 };
+ 
+exports.commandeAssign = async function (req, res) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    res.status(400).send({ message: "Page introuvable!" });
+    return;
+  }
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données sont obligatoire!"
+    });
+  }
+  console.log(req.body);
+  const token = authHeader && authHeader.split(' ')[1];
+  var users = await utilisateurService.findUser({ token: token });
+  var profilEkaly = await utilisateurService.getProfilEkaly();
+  var profilLivreur = await utilisateurService.getProfilLivreur();
+  if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+  if (profilLivreur.length == 0) res.status(500).json({ message: "Profil livreur non configuré" });
+  if (profilEkaly.length == 0) res.status(500).json({ message: "profil ekaly non configuré" });
+  if (users[0].id_profil != profilEkaly[0].id) res.status(500).json({ message: "Vous devez connecter en tant qu'administrateur" });
+  try {
+    console.log(req.body.idcommande);
+    await utilisateurService.updateCommande(req.body.idcommande,{id_livreur:req.body.idlivreur});
+    res.status(200).send({ message: "Livreur assigné" });
+  } catch (error) {
+  
+    res.status(500).send({ message: "Assign non terminé" });
+  }
+
+}
 
 exports.createLivreur = async function (req, res) {
   const authHeader = req.headers['authorization'];
@@ -109,7 +140,7 @@ exports.createLivreur = async function (req, res) {
   utilisateur.token = sha1(Date.now());
   try {
     await utilisateurService.createLivreur(utilisateur);
-    res.status(200).send({ data: { token: utilisateur.token }, message: "Serveur enregistré" });
+    res.status(200).send({ data: { token: utilisateur.token }, message: "Livreur enregistré" });
   } catch (error) {
     res.status(500).send({ message: "Client non enregistré" });
   }

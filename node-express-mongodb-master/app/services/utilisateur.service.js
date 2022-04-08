@@ -121,10 +121,17 @@ const createCommande = async function (utilisateur,plat,quantite) {
     }
 };
 
- 
+const updateCommande = async function(id,commande){
+    try{
+        await Commande.findByIdAndUpdate({"_id":id}, commande, { useFindAndModify: false });
+    }catch(e){
+
+    }
+}
 
 module.exports = {
     createCommande,
+    updateCommande,
     getProfilEkaly,
     getProfil,
     getProfilLivreur,

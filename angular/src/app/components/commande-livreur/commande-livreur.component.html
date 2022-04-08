@@ -2,6 +2,9 @@
 
 
 <br />
+<div class="alert alert-primary" *ngIf="message.length>0" role="alert">
+   {{message}}
+  </div>
 <div class="d-none d-lg-block">
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
@@ -41,8 +44,8 @@
                     <datalist id="SearchResults">
                         <option *ngFor="let sr of livreurs" [value]="sr['prenom']"></option>
                     </datalist>
-                    <button type="button" class="btn btn-link btn-rounded btn-sm fw-bold" (click)="onAssign()" data-mdb-ripple-color="dark">
-                        Edit
+                    <button type="button" class="btn btn-link btn-rounded btn-sm fw-bold" (click)="onAssign(plat)" data-mdb-ripple-color="dark">
+                        Attribuer
                     </button>
                 </td>
             </tr>

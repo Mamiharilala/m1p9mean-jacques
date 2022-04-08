@@ -10,7 +10,7 @@ module.exports = app => {
 
   //router.get("/:id", utilisateur.findOne);
  
-  //router.put("/:id", utilisateur.update);
+  router.put("/commande/assign", utilisateur.commandeAssign);
  
   //router.delete("/:id", utilisateur.delete);
 

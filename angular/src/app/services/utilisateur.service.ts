@@ -22,6 +22,9 @@ export class UtilisateurService {
   buyPlat(data: any, header: any): Observable<any> {
     return this.http.post<any>(environment.url + "utilisateur/commande", data, header);
   }
+  assignLivreur(data: any, header: any): Observable<any> {
+    return this.http.put<any>(environment.url + "utilisateur/commande/assign", data, {headers: new HttpHeaders(header)});
+  }
   getResultList() {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     return this.http.get('./assets/result.json', { headers });

@@ -14,7 +14,10 @@ export class CommandeLivreurComponent implements OnInit {
 	platNotAssigned: any[] = []; 
 	livreurs: any[] = [];
 	index:any;
-	constructor(private utilisateurService: UtilisateurService,private platService: PlatService) { }
+	message:string;
+	constructor(private utilisateurService: UtilisateurService,private platService: PlatService) { 
+		this.message = "";
+	}
 
 	ngOnInit(): void {
 		this.getSearchResults();
@@ -60,9 +63,14 @@ export class CommandeLivreurComponent implements OnInit {
 			this.platNotAssigned = res['data'];
   		  });
 	}
-	onAssign(){
-		console.log(this.results);
-		console.log(this.index);
-		
+	onAssign(plat:any){
+ 		const headers = { 'Authorization': '' + localStorage.getItem("token") };
+		this.utilisateurService.assignLivreur({idcommande:plat['_id'],idlivreur:this.results[0]['id']},headers).subscribe(res => {
+			this.message = res['message'];
+			setTimeout(() => {
+				this.message = "";
+			   }, 3000);
+			});
+			
 	}
 }
