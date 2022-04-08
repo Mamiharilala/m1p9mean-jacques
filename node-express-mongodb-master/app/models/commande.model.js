@@ -5,6 +5,7 @@ module.exports = mongoose => {
         {
             id_utilisateur: { type: Schema.Types.ObjectId , required: true },
             id_plat: { type: Schema.Types.ObjectId , required: true },
+            id_livreur: {type:Schema.Types.ObjectId},
             quantite: { type: Number, required: true, default: 1 },
             pu: { type: Number, required: true  },
             booked: { type: Boolean, required: true, default: false },
@@ -19,6 +20,6 @@ module.exports = mongoose => {
         return object;
     });
 
-    const Commande = mongoose.model("commande", commande);
+    const Commande = mongoose.model("commande", commande );
     return Commande;
 };

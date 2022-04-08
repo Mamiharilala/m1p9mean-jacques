@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PlatService } from '../../services/plat.service';
- @Component({
+import { UtilisateurService } from '../../services/utilisateur.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { catchError, map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+@Component({
   selector: 'app-plat-liste',
   templateUrl: './plat-liste.component.html',
   styleUrls: ['./plat-liste.component.sass']
@@ -8,15 +12,28 @@ import { PlatService } from '../../services/plat.service';
 export class PlatListeComponent implements OnInit {
   platListe: any[] = [
     // vos FaceSnap ici
-  ]
-  constructor(private platService: PlatService) {
-
+  ];
+  message: string;
+  platForm!: FormGroup;
+  constructor(private http: HttpClient, private platService: PlatService, private formBuilder: FormBuilder, private utilisateurService: UtilisateurService) {
+    this.platForm = this.formBuilder.group({
+      quantite: [null]
+    });
+    this.message = "";
   }
-
   ngOnInit(): void {
     this.platService.getAll().subscribe(res => {
       this.platListe = res['data'];
-      console.log(res['data']);
     });
+  }
+  onBuyPlat(i: any) {
+    var body = { "quantite": this.platForm.value.quantite, "id_plat": this.platListe[i].id };
+    const headers = { 'Authorization': '' + localStorage.getItem("token") };
+    this.utilisateurService.buyPlat(body, { headers }).subscribe(data => {
+      this.message = data['message'];
+    });
+    setTimeout(() => {
+      this.message = "";
+    }, 3000);
   }
 }

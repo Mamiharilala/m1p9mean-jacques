@@ -17,4 +17,9 @@ export class PlatService {
   getAll() :Observable<any>{
     return this.http.get(environment.url+"plat",{ headers: this.httpHeaders });
   }
+
+  getAllNotAssigned() :Observable<any>{
+    return this.http.get(environment.url+"plat/commandesnotassigned",{ headers: this.httpHeaders });
+  }
+  
 }

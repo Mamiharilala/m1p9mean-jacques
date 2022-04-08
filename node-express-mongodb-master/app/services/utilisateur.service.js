@@ -6,6 +6,7 @@ const Utilisateur = db.utilisateur;
 const profilRestaurant = "Restaurant";
 const profilClient = "Client";
 const profilEkaly = "Responsable E-kaly";
+const profilLivreur = "Livreur";
 
 const getProfilRestaurant = async function () {
     try {
@@ -31,6 +32,14 @@ const getProfilEkaly = async function () {
         throw Error('Erreur de recherche de profil Ekaly')
     }
 };
+const getProfilLivreur = async function () {
+    try {
+        var profil = await Profil.find({ designation: profilLivreur }).exec();
+        return profil;
+    } catch (e) {
+        throw Error('Erreur de recherche de profil Ekaly')
+    }
+};
 const getProfil = async function (id_profil) {
     try {
         var profil = await Profil.find(new Profil({_id :id_profil})).exec();
@@ -51,12 +60,24 @@ const createClient = async function (utilisateur) {
         throw Error("Erreur d'enregistrement du client")
     }
 };
+const createLivreur= async function (utilisateur) {
+    try {
+        const user = new Utilisateur(utilisateur);
+        var profilLivreur = await getProfilLivreur();
+        if(profilLivreur.length>0){
+            user.id_profil = profilLivreur[0].id;
+        }
+        return await user.save(user);
+    } catch (e) {
+        throw Error("Erreur d'enregistrement du client")
+    }
+};
 const findUser = async function (user) {
     try {
         var utilisateur = await Utilisateur.find(user).exec();      
         return utilisateur;
     } catch (e) {
-        throw Error('Erreur de recherche de restaurant')
+        throw Error('Erreur de recherche de utilisateur')
     }
 };
 
@@ -90,9 +111,7 @@ const getPlat = async function (id_plat) {
 
 const createCommande = async function (utilisateur,plat,quantite) {
     try {
-        console.log(plat);
-        var commande = new Commande({"id_utilisateur":utilisateur.id,"id_plat" :plat.id,"quantite":quantite,"pu":plat.prixVente});
-        console.log(commande);
+        var commande = new Commande({"id_utilisateur":utilisateur.id,"id_plat" :plat.id,"id_livreur" :null,"quantite":quantite,"pu":plat.prixVente});
         var commande = await commande.save(commande);
         return commande;
     } catch (e) {
@@ -101,10 +120,13 @@ const createCommande = async function (utilisateur,plat,quantite) {
     }
 };
 
+ 
+
 module.exports = {
     createCommande,
     getProfilEkaly,
     getProfil,
+    getProfilLivreur,
     getPlat,
     updateUser,
     login,

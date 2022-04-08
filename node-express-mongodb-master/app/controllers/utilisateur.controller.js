@@ -25,8 +25,8 @@ exports.createClient = async function (req, res) {
     });
   }
   const utilisateur = new Utilisateur(req.body);
-  utilisateur.mot_passe = sha1(utilisateur.mot_passe); 
-  utilisateur.token =sha1(Date.now());
+  utilisateur.mot_passe = sha1(utilisateur.mot_passe);
+  utilisateur.token = sha1(Date.now());
   try {
     await utilisateurService.createClient(utilisateur);
     res.status(200).send({ data: { token: utilisateur.token }, message: "Client enregistré" });
@@ -35,21 +35,22 @@ exports.createClient = async function (req, res) {
   }
 };
 
-exports.login =  async function(req, res) {
+exports.login = async function (req, res) {
   if (!req.body) {
     return res.status(400).send({
       message: "Les données d'authentification sont obligatoire!"
     });
   }
   const crypt = sha1(req.body.mot_passe);
-  var result = await utilisateurService.login({contact:req.body.contact,mot_passe:crypt});
-  if(result.length>0){
+  var result = await utilisateurService.login({ contact: req.body.contact, mot_passe: crypt });
+  if (result.length > 0) {
     let token = sha1(Date.now());
-    await utilisateurService.updateUser(result[0].id,{"token":token});
+    await utilisateurService.updateUser(result[0].id, { "token": token });
     result[0].token = token;
     var data = await utilisateurService.getProfil(result[0].id_profil);
     result.profil = data;
-    return res.status(200).send({data:{utilisateur:{"token":token},profil: result.profil},
+    return res.status(200).send({
+      data: { utilisateur: { "token": "Barear " + token }, profil: result.profil },
       message: "Succès"
     });
   }
@@ -61,28 +62,58 @@ exports.login =  async function(req, res) {
 exports.createCommande = async function (req, res) {
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
-      res.status(400).send({ message: "Page introuvable!" });
-      return;
+    res.status(200).send({ message: "Page introuvable!" });
+    return;
   }
+  console.log(authHeader);
   if (!req.body) {
-      return res.status(400).send({
-          message: "Les données d'inscription sont obligatoire!"
-      });
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
   }
   const token = authHeader && authHeader.split(' ')[1];
   var users = await utilisateurService.findUser({ token: token });
   var plat = await utilisateurService.getPlat(req.body.id_plat);
   if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
   if (plat.length == 0) res.status(500).json({ message: "Plat n'existe pas" });
-  if (req.body.quantite&&Number(req.body.quantite) <= 0) res.status(500).json({ message: "La quantité est invalide" });
+  if (req.body.quantite && Number(req.body.quantite) <= 0) res.status(500).json({ message: "La quantité est invalide" });
   try {
-      var data = await utilisateurService.createCommande(users[0],plat[0],req.body.quantite);
-      res.status(200).send({ message: "Commande enregistré" });
+    var data = await utilisateurService.createCommande(users[0], plat[0], req.body.quantite);
+    res.status(200).send({ message: "Commande enregistré" });
   } catch (error) {
-       res.status(500).send({ message: "Commande non enregistré" });
+    res.status(200).send({ message: "Commande non enregistré" });
   }
 };
 
+exports.createLivreur = async function (req, res) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    res.status(400).send({ message: "Page introuvable!" });
+    return;
+  }
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
+  const token = authHeader && authHeader.split(' ')[1];
+  var users = await utilisateurService.findUser({ token: token });
+  var profilEkaly = await utilisateurService.getProfilEkaly();
+  var profilLivreur = await utilisateurService.getProfilLivreur();
+  if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+  if (profilLivreur.length == 0) res.status(500).json({ message: "Profil livreur non configuré" });
+  if (profilEkaly.length == 0) res.status(500).json({ message: "profil ekaly non configuré" });
+  if (users[0].id_profil != profilEkaly[0].id) res.status(500).json({ message: "Vous devez connecter en tant qu'administrateur" });
+  const utilisateur = new Utilisateur(req.body);
+  utilisateur.mot_passe = sha1(utilisateur.mot_passe);
+  utilisateur.token = sha1(Date.now());
+  try {
+    await utilisateurService.createLivreur(utilisateur);
+    res.status(200).send({ data: { token: utilisateur.token }, message: "Serveur enregistré" });
+  } catch (error) {
+    res.status(500).send({ message: "Client non enregistré" });
+  }
+};
 /*
 
 updateUser

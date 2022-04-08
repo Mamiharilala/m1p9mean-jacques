@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RestaurantListeComponent } from './components/restaurant-liste/restaurant-liste.component';
 import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
+import { CommandeLivreurComponent } from './components/commande-livreur/commande-livreur.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlatListeComponent } from './components/plat-liste/plat-liste.component
     FooterComponent,
     HeaderComponent,
     RestaurantListeComponent,
-    PlatListeComponent
+    PlatListeComponent,
+    CommandeLivreurComponent
   ],
   imports: [
     BrowserModule,

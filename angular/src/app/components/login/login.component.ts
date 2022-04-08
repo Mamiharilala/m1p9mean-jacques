@@ -35,17 +35,22 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res['data']['utilisateur'] && res['data']['profil']) {
-            console.log(res['data']['utilisateur']);
+            localStorage.setItem('token', res['data']['utilisateur']['token']);
+            this.router.navigateByUrl("/plat-liste");
+          }else{
+            this.onErrorAuth();
           }
-          this.router.navigateByUrl("/plat-liste");
         },
         error: (e) =>  {
-          this.message = "Donnée d'authentification incorrecte";
-          setTimeout(() => {
-            this.message = "";
-           }, 3000);
+          this.onErrorAuth();
          }
       });
 
+  }
+  onErrorAuth(){
+    this.message = "Donnée d'authentification incorrecte";
+    setTimeout(() => {
+      this.message = "";
+     }, 3000);
   }
 }

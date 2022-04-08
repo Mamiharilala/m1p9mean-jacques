@@ -36,7 +36,14 @@ exports.findAll = async function (req, res, next) {
         let allRestaurant = await restaurantService.getAllPlat();
         return res.status(200).json({ status: 200, data: allRestaurant, message: "Succès" });
     } catch (e) {
-        console.log(e);
-        return res.status(500).json({ message: e.message });
+         return res.status(200).json({ message: e.message });
+    }
+};
+exports.findCommandeNontAssigned = async function (req, res, next) {
+    try {
+        let allCommandeNontAssigned = await restaurantService.getCommandeNontAssigned();
+        return res.status(200).json({ status: 200, data: allCommandeNontAssigned, message: "Succès" });
+    } catch (e) {
+         return res.status(200).json({ message: e.message });
     }
 };

@@ -6,6 +6,7 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
 import { CommandeListeComponent } from './components/commande-liste/commande-liste.component';
 import { RestaurantListeComponent  } from './components/restaurant-liste/restaurant-liste.component';
 import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
+import {  CommandeLivreurComponent } from './components/commande-livreur/commande-livreur.component';
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
     { path: 'commande-liste', component: CommandeListeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: LoginComponent },
     { path: 'restaurant-liste', component: RestaurantListeComponent},
+    { path: 'commande-livreur', component: CommandeLivreurComponent},
     { path: 'plat-liste', component: PlatListeComponent}
 ];
 @NgModule({

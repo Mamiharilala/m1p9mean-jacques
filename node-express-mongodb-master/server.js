@@ -37,6 +37,7 @@ require("./app/routes/utilisateur.routes")(app);
 require("./app/routes/profil.routes")(app);
 require("./app/routes/restaurant.routes")(app);
 require("./app/routes/plat.routes")(app);
+require("./app/routes/livreur.routes")(app);
 const PORT = process.env.PORT || 8087;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
