@@ -60,6 +60,7 @@ const createClient = async function (utilisateur) {
         throw Error("Erreur d'enregistrement du client")
     }
 };
+
 const createLivreur= async function (utilisateur) {
     try {
         const user = new Utilisateur(utilisateur);
@@ -133,7 +134,8 @@ module.exports = {
     findUser,
     getProfilClient,
     getProfilRestaurant,
-    createClient
+    createClient,
+    createLivreur
 };
 /*exports.isClient = async function (query, page, limit) {
     try {

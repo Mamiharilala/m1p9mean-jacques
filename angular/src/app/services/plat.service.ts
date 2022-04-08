@@ -8,18 +8,17 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class PlatService {
-  httpHeaders = new HttpHeaders().set('Content-Type', 'application/json').set('authorization', 'Barear 488550e55c8579029aabc2d583144622315bcb22');
-  restaurantListe: Utilisateur[] = [
+   restaurantListe: Utilisateur[] = [
     // vos FaceSnap ici
   ]
   constructor(private http: HttpClient) { }
    
-  getAll() :Observable<any>{
-    return this.http.get(environment.url+"plat",{ headers: this.httpHeaders });
+  getAll(headers:any) :Observable<any>{
+    return this.http.get(environment.url+"plat",headers);
   }
 
-  getAllNotAssigned() :Observable<any>{
-    return this.http.get(environment.url+"plat/commandesnotassigned",{ headers: this.httpHeaders });
+  getAllNotAssigned(headers:any) :Observable<any>{
+    return this.http.get(environment.url+"plat/commandesnotassigned",headers);
   }
   
 }

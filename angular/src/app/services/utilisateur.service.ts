@@ -26,5 +26,8 @@ export class UtilisateurService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     return this.http.get('./assets/result.json', { headers });
   }
+  getLivreurs(header:any) :Observable<any>{
+      return this.http.get(environment.url+"livreurs",{headers: new HttpHeaders(header)});
+  }
 
 }

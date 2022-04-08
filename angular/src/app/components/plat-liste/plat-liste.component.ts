@@ -22,7 +22,8 @@ export class PlatListeComponent implements OnInit {
     this.message = "";
   }
   ngOnInit(): void {
-    this.platService.getAll().subscribe(res => {
+    const headers = { 'Authorization': '' + localStorage.getItem("token") };
+    this.platService.getAll(headers).subscribe(res => {
       this.platListe = res['data'];
     });
   }

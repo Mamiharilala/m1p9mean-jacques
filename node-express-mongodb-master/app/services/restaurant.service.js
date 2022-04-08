@@ -55,8 +55,6 @@ const getCommandeNontAssigned = async function () {
                     localField: "id_utilisateur",
                     foreignField: "_id",
                     as: "utilisateur"
-
-
                 }
             },
             {
