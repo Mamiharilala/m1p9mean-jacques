@@ -15,8 +15,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { RestaurantListeComponent } from './components/restaurant-liste/restaurant-liste.component';
 import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
 import { CommandeLivreurComponent } from './components/commande-livreur/commande-livreur.component';
-
-@NgModule({
+import { CommandeDeliveredComponent } from './components/commande-delivered/commande-delivered.component';
+ @NgModule({
   declarations: [
     AppComponent,
     EKalyComponent,
@@ -28,7 +28,8 @@ import { CommandeLivreurComponent } from './components/commande-livreur/commande
     HeaderComponent,
     RestaurantListeComponent,
     PlatListeComponent,
-    CommandeLivreurComponent
+    CommandeLivreurComponent,
+    CommandeDeliveredComponent
   ],
   imports: [
     BrowserModule,
