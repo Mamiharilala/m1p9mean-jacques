@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 db.mongoose
-  .connect(db.urlprod, {
+  .connect(db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
