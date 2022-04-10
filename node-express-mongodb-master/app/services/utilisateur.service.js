@@ -110,9 +110,9 @@ const login = async function (utilisateur) {
     }
 };
 
-const updateUser = async function(user){
+const updateUser = async function(id,user){
     try{
-        var utilisateur = await Utilisateur.find(user).exec();      
+        var utilisateur = await Utilisateur.findByIdAndUpdate(id, user, { useFindAndModify: false });      
         return utilisateur;
     }catch(e){
 
@@ -134,10 +134,18 @@ const getPlat = async function (id_plat) {
         var plat = await Plat.find(new Plat({_id :id_plat})).exec();
         return plat;
     } catch (e) {
-        throw Error("Erreur de recherche de profil")
+        throw Error("Erreur de recherche de plat")
     }
 };
 
+const getPlatRestaurant = async function (id) {
+    try {
+        var plat = await Plat.find({"id_restaurant" :id}).exec();
+        return plat;
+    } catch (e) {
+        throw Error("Erreur de recherche de plat")
+    }
+};
 
 
 const createCommande = async function (utilisateur,plat,quantite) {
@@ -204,6 +212,7 @@ module.exports = {
     createUtilisateur,
     login,
     findUser,
+    getPlatRestaurant,
     getProfilClient,
     getProfilRestaurant,
     createClient,

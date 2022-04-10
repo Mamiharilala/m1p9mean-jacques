@@ -32,6 +32,7 @@ exports.findAll = async function (req, res, next) {
         return res.status(500).json({ message: e.message });
     }
 };
+
 exports.createRestaurant = async function (req, res) {
     const authHeader = req.headers['authorization'];
     if (!authHeader) {
@@ -57,5 +58,26 @@ exports.createRestaurant = async function (req, res) {
         res.status(200).send({ data: { token: utilisateur.token }, message: "Restaurant enregistré" });
     } catch (error) {
         res.status(500).send({ message: "Client non enregistré" });
+    }
+};
+
+exports.getPlatRestaurant = async function (req, res) {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+        res.status(400).send({ message: "Page introuvable!" });
+        return;
+    }
+    const token = authHeader && authHeader.split(' ')[1];
+    var users = await utilisateurService.findUser({ token: token });
+    var profilRestaurant = await utilisateurService.getProfilRestaurant();
+    if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+    if (profilRestaurant.length == 0) res.status(500).json({ message: "profil restaurant non configuré" });
+    if (users[0].id_profil != profilRestaurant[0].id) res.status(500).json({ message: "Vous devez connecter en tant que restaurant" });
+    try {
+       
+        var resp = await utilisateurService.getPlatRestaurant(users[0].id);
+        res.status(200).send({ data:resp, message: "Succès" });
+    } catch (error) {
+        res.status(200).send({ message: "Plat non trouvé" });
     }
 };

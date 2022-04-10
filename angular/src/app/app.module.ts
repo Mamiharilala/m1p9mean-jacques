@@ -23,6 +23,7 @@ import { NavBarLivreurComponent } from './components/nav-bar-livreur/nav-bar-liv
 import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.component';
 import { LivreurCreateComponent } from './components/livreur-create/livreur-create.component';
 import { CommandeEnCoursComponent } from './components/commande-en-cours/commande-en-cours.component';
+import { PlatRestaurantComponent } from './components/plat-restaurant/plat-restaurant.component';
  @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { CommandeEnCoursComponent } from './components/commande-en-cours/command
     NavBarLivreurComponent,
     PlatALivrerComponent,
     LivreurCreateComponent,
-    CommandeEnCoursComponent
+    CommandeEnCoursComponent,
+    PlatRestaurantComponent
   ],
   imports: [
     BrowserModule,

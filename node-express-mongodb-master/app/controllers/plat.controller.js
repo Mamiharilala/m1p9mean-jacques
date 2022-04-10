@@ -58,11 +58,11 @@ exports.findCommandeEnCours = async function (req, res, next) {
     //rechercher l'utilisateur
     try {
         var users = await utilisateurService.findUser({ 'token': token });
-        console.log({ 'token': token });
         var profilRestaurant = await utilisateurService.getProfilRestaurant();
         if (users.length == 0) res.status(500).json({ message: "Restaurant n'existe pas" });
         if (profilRestaurant.length == 0) res.status(500).json({ message: "profil restaurant non configuré" });
-       
+        console.log(users);
+        console.log(profilRestaurant);
         if (users[0].id_profil != profilRestaurant[0].id) res.status(500).json({ message: "Vous devez connecter en tant que restaurant" });
        
         let allCommandeEnCours = await restaurantService.findCommandeEnCours(users[0].id);

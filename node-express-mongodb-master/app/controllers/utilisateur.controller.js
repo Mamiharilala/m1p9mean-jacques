@@ -69,7 +69,7 @@ exports.login = async function (req, res) {
   var result = await utilisateurService.login({ contact: req.body.contact, mot_passe: crypt });
   if (result.length > 0) {
     let token = sha1(Date.now());
-    await utilisateurService.updateUser(result[0].id, { "token": token });
+    await utilisateurService.updateUser(result[0].id, { token: token });
     var data = await utilisateurService.getProfil(result[0].id_profil);
     result.profil = data;
     return res.status(200).send({
