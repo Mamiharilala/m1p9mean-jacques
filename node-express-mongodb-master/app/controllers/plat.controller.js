@@ -54,20 +54,18 @@ exports.findCommandeEnCours = async function (req, res, next) {
         res.status(400).send({ message: "Page introuvable!" });
         return;
     }
-    if (!req.body) {
-        return res.status(400).send({
-            message: "Les données d'inscription sont obligatoire!"
-        });
-    }
     const token = authHeader && authHeader.split(' ')[1];
     //rechercher l'utilisateur
     try {
-        var users = await utilisateurService.findUser({ token: token });
+        var users = await utilisateurService.findUser({ 'token': token });
+        console.log({ 'token': token });
         var profilRestaurant = await utilisateurService.getProfilRestaurant();
         if (users.length == 0) res.status(500).json({ message: "Restaurant n'existe pas" });
         if (profilRestaurant.length == 0) res.status(500).json({ message: "profil restaurant non configuré" });
+       
         if (users[0].id_profil != profilRestaurant[0].id) res.status(500).json({ message: "Vous devez connecter en tant que restaurant" });
-        let allCommandeEnCours = await restaurantService.findCommandeEnCours(req.query.id_restaurant);
+       
+        let allCommandeEnCours = await restaurantService.findCommandeEnCours(users[0].id);
         return res.status(200).json({ status: 200, data: allCommandeEnCours, message: "Succès" });
     } catch (e) {
         return res.status(200).json({ message: e.message });

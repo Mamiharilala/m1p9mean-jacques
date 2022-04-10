@@ -41,5 +41,7 @@ export class UtilisateurService {
   livrerPlat(data:any,header:any) :Observable<any>{
      return this.http.put<any>(environment.url + "plat/livrer", data, {headers: new HttpHeaders(header)});
   }
-
+  getCommandeEnCours(header:any) :Observable<any>{
+    return this.http.get(environment.url+"plat/commandesencours",{headers: new HttpHeaders(header)});
+  }
 }

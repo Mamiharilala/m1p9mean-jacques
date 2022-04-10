@@ -110,9 +110,9 @@ const login = async function (utilisateur) {
     }
 };
 
-const updateUser = async function(benefice){
+const updateUser = async function(user){
     try{
-        var utilisateur = await Benefice.find(user).exec();      
+        var utilisateur = await Utilisateur.find(user).exec();      
         return utilisateur;
     }catch(e){
 

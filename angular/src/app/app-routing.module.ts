@@ -10,6 +10,7 @@ import {  CommandeLivreurComponent } from './components/commande-livreur/command
 import { CommandeDeliveredComponent } from './components/commande-delivered/commande-delivered.component';
 import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.component';
 import { LivreurCreateComponent } from './components/livreur-create/livreur-create.component';
+import { CommandeEnCoursComponent } from './components/commande-en-cours/commande-en-cours.component';
 
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
     { path: ':role/commande-livraison', component: CommandeDeliveredComponent},
     { path: ':role/commande-delivered', component: CommandeDeliveredComponent},
     { path: ':role/plat-a-livrer', component: PlatALivrerComponent},
-    { path: ':role/livreur-create', component: LivreurCreateComponent}
+    { path: ':role/livreur-create', component: LivreurCreateComponent},
+    { path: ':role/commande-en-cours', component: CommandeEnCoursComponent}
 
 ];
 @NgModule({
