@@ -16,6 +16,10 @@ import { RestaurantListeComponent } from './components/restaurant-liste/restaura
 import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
 import { CommandeLivreurComponent } from './components/commande-livreur/commande-livreur.component';
 import { CommandeDeliveredComponent } from './components/commande-delivered/commande-delivered.component';
+import { NavBarClientComponent } from './components/nav-bar-client/nav-bar-client.component';
+import { NavBarEkalyComponent } from './components/nav-bar-ekaly/nav-bar-ekaly.component';
+import { NavBarRestaurantComponent } from './components/nav-bar-restaurant/nav-bar-restaurant.component';
+import { NavBarLivreurComponent } from './components/nav-bar-livreur/nav-bar-livreur.component';
  @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,11 @@ import { CommandeDeliveredComponent } from './components/commande-delivered/comm
     RestaurantListeComponent,
     PlatListeComponent,
     CommandeLivreurComponent,
-    CommandeDeliveredComponent
+    CommandeDeliveredComponent,
+    NavBarClientComponent,
+    NavBarEkalyComponent,
+    NavBarRestaurantComponent,
+    NavBarLivreurComponent
   ],
   imports: [
     BrowserModule,

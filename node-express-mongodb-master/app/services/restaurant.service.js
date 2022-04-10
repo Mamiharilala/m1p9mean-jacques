@@ -30,7 +30,6 @@ const createRestaurant = async function (utilisateur) {
 };
 const createPlat = async function (plat) {
     try {
-        console.log(plat);
         return await plat.save(plat);
     } catch (e) {
         throw Error("Erreur d'enregistrement du plat")
@@ -39,10 +38,17 @@ const createPlat = async function (plat) {
 const getAllPlat = async function () {
     try {
         var plat = await Plat.find({ "etat": true, "visibility": true }).exec();
-        console.log(new Plat({ "etat": true, "visibility": true }));
         return plat;
     } catch (e) {
         throw Error("Erreur de recherche de profil");
+    }
+};
+const getPlat = async function (id) {
+    try {
+        var plat = await Plat.find({ '_id':id }).exec();
+         return plat;
+    } catch (e) {
+        throw Error("Erreur de recherche de plat");
     }
 };
 const getCommandeNontAssigned = async function () {
@@ -65,13 +71,13 @@ const getCommandeNontAssigned = async function () {
                     foreignField: "_id",
                     as: "plat"
                 }
-            },{
+            }, {
                 $match: {
-                    "booked" : false,
+                    "booked": false,
                     "id_livreur": null,
                     "etat": true
                 }
-               
+
             }
         ]).exec();
         return commande;
@@ -79,8 +85,37 @@ const getCommandeNontAssigned = async function () {
         throw Error("Erreur de recherche de commande");
     }
 };
+const findCommandeEnCours = async function (id) {
+    try {
+        var commande = Commande.find({ "id_restaurant": id }).exec();
+        return commande;
+    } catch (e) {
+        throw Error("Erreur de recherche de commande");
+    }
+};
+const findCommande = async function (cond) {
+    try {
+        var commande = Commande.find(  cond ).exec();
+        return commande;
+    } catch (e) {
+        throw Error("Erreur de recherche de commande");
+    }
+};
+const updatePlat = async function(id,plat){
+    try{
+        await Plat.findByIdAndUpdate(id, plat, { useFindAndModify: false });
+    }catch(e){
+
+    }
+}
+
+
 
 module.exports = {
+    getPlat,
+    updatePlat,
+    findCommande,
+    findCommandeEnCours,
     createRestaurant,
     getCommandeNontAssigned,
     getProfilRestaurant,

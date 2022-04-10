@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.sass']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor() { }
+  role: string;
+  constructor(private route: ActivatedRoute) { 
+    this.role = this.route.snapshot.params['role'];
+  }
 
   ngOnInit(): void {
   }

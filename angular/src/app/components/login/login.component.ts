@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res['data']['utilisateur'] && res['data']['profil']) {
             localStorage.setItem('token', res['data']['utilisateur']['token']);
-            this.router.navigateByUrl("/plat-liste");
-          }else{
+            localStorage.setItem('role', res['data']['profil'][0]['designation']);
+            this.router.navigateByUrl("/"+localStorage.getItem('role')+"/plat-liste");
+           }else{
             this.onErrorAuth();
           }
         },

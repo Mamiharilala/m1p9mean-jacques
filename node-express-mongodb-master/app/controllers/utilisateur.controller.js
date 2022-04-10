@@ -100,7 +100,6 @@ exports.commandeAssign = async function (req, res) {
       message: "Les données sont obligatoire!"
     });
   }
-  console.log(req.body);
   const token = authHeader && authHeader.split(' ')[1];
   var users = await utilisateurService.findUser({ token: token });
   var profilEkaly = await utilisateurService.getProfilEkaly();

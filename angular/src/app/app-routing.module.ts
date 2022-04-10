@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'restaurant-liste', component: RestaurantListeComponent},
     { path: 'commande-livreur', component: CommandeLivreurComponent},
-    { path: 'plat-liste', component: PlatListeComponent},
+    { path: ':role/plat-liste', component: PlatListeComponent},
     { path: 'commande-livraison', component: CommandeDeliveredComponent}
 ];
 @NgModule({

@@ -8,7 +8,9 @@ module.exports = app => {
     router.get("/", plat.findAll);
 
     router.get("/commandesnotassigned", plat.findCommandeNontAssigned);
-
+    router.get("/commandesencours", plat.findCommandeEnCours);
+    router.put("/update", plat.updateVisibility);
+    router.put("/livrer", plat.livrer);
     app.use("/api/plat", router);
   };
   

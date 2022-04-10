@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PlatService } from '../../services/plat.service';
 import { UtilisateurService } from '../../services/utilisateur.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { catchError, map } from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-plat-liste',
@@ -13,9 +14,11 @@ export class PlatListeComponent implements OnInit {
   platListe: any[] = [
     // vos FaceSnap ici
   ];
+   
   message: string;
   platForm!: FormGroup;
-  constructor(private http: HttpClient, private platService: PlatService, private formBuilder: FormBuilder, private utilisateurService: UtilisateurService) {
+  
+  constructor(private http: HttpClient,  private route: ActivatedRoute,private platService: PlatService, private formBuilder: FormBuilder, private utilisateurService: UtilisateurService) {
     this.platForm = this.formBuilder.group({
       quantite: [null]
     });
