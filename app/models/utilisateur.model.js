@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+
+const db = require("../models");
+const Profil = db.profil;
+
 var Schema = mongoose.Schema;
 module.exports = mongoose => {
   var utilisateur = mongoose.Schema(
