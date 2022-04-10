@@ -39,6 +39,26 @@ exports.createClient = async function (req, res) {
   }
 };
 
+
+exports.createUtilisateur = async function (req, res) {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
+  const utilisateur = new Utilisateur(req.body);
+  utilisateur.mot_passe = sha1(utilisateur.mot_passe);
+  utilisateur.token = sha1(Date.now());
+  try {
+    await utilisateurService.createUtilisateur(utilisateur);
+    await utilisateurService.sendWelcomeMail(utilisateur.email);
+    res.status(200).send({ data: { token: utilisateur.token }, message: "Utilisateur enregistré" });
+  } catch (error) {
+    res.status(200).send({ data: {}, message: "Utilisateur non enregistré" });
+  }
+};
+
+
 exports.login = async function (req, res) {
   if (!req.body) {
     return res.status(400).send({

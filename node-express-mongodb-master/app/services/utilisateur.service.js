@@ -3,6 +3,7 @@ const Profil = db.profil;
 var nodemailer = require('nodemailer');
 const Plat = db.plat;
 const Commande = db.commande;
+const Benefice = db.benefice;
 const Utilisateur = db.utilisateur;
 const profilRestaurant = "Restaurant";
 const profilClient = "Client";
@@ -69,8 +70,15 @@ const createClient = async function (utilisateur) {
         throw Error("Erreur d'enregistrement du client")
     }
 };
-
-const createLivreur= async function (utilisateur) {
+const createUtilisateur = async function (utilisateur) {
+    try {
+        const user = new Utilisateur(utilisateur);
+        return await user.save(user);
+    } catch (e) {
+        throw Error("Erreur d'enregistrement du client")
+    }
+};
+const createLivreur = async function (utilisateur) {
     try {
         const user = new Utilisateur(utilisateur);
         var profilLivreur = await getProfilLivreur();
@@ -79,9 +87,11 @@ const createLivreur= async function (utilisateur) {
         }
         return await user.save(user);
     } catch (e) {
-        throw Error("Erreur d'enregistrement du client")
+        throw Error("Erreur d'enregistrement du livreur")
     }
 };
+
+ 
 const findUser = async function (user) {
     try {
         var utilisateur = await Utilisateur.find(user).exec();      
@@ -100,13 +110,24 @@ const login = async function (utilisateur) {
     }
 };
 
-const updateUser = async function(id,user){
+const updateUser = async function(benefice){
     try{
-        await Utilisateur.findByIdAndUpdate(id, user, { useFindAndModify: false });
+        var utilisateur = await Benefice.find(user).exec();      
+        return utilisateur;
     }catch(e){
 
     }
 }
+
+const createBenefice = async function(benefic){
+    try{
+        const benefice = new Benefice(benefic);
+        return await benefice.save(benefice);
+    }catch(e){
+
+    }
+}
+
 
 const getPlat = async function (id_plat) {
     try {
@@ -175,10 +196,12 @@ module.exports = {
     createCommande,
     updateCommande,
     getProfilEkaly,
+    createBenefice,
     getProfil,
     getProfilLivreur,
     getPlat,
     updateUser,
+    createUtilisateur,
     login,
     findUser,
     getProfilClient,

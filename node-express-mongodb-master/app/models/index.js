@@ -9,5 +9,6 @@ db.url = dbConfig.url;
 db.utilisateur = require("./utilisateur.model.js")(mongoose);
 db.profil = require("./profil.model.js")(mongoose);
 db.plat = require("./plat.model.js")(mongoose);
+db.benefice = require("./benefice.model.js")(mongoose);
 db.commande = require("./commande.model.js")(mongoose);
 module.exports = db;

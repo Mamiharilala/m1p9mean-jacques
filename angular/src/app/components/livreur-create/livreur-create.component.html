@@ -1,3 +1,5 @@
+<app-nav-bar></app-nav-bar>
+<br />
 <body>
     <br />
     <div class="row">
@@ -10,10 +12,9 @@
                     <!-- Material form register -->
                     <form [formGroup]="inscriptionForm">
                         <p class="h4 text-center py-4">Inscription</p>
-                        <div *ngIf="submitted">
-                            <h4>Inscription terminée, Bienvenue</h4>
-                            <button class="btn btn-success">Accueil</button>
-                        </div>
+                        <div class="alert alert-info" role="alert" *ngIf="message.length>0">
+                            {{message}}
+                          </div>
                         <!-- Material input text -->
                         <div class="md-form">
                             <label for="materialFormCardNameEx" class="font-weight-light">Nom</label>
@@ -58,6 +59,9 @@
                                 passe</label>
                             <a routerLink="/login" style="float:right">Se logger</a>
                         </div>
+                        <div class="alert alert-info" role="alert" *ngIf="message.length>0">
+                            {{message}}
+                          </div>
                         <div class="text-center py-4 mt-3">
                             <button class="btn btn-cyan" (click)="onSubmitForm()" [disabled]="inscriptionForm.invalid"
                                 type="submit">S'inscrire</button>
@@ -76,3 +80,4 @@
          
     </div>
 </body>
+<app-footer></app-footer>

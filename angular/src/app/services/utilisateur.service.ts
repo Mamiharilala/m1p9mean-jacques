@@ -15,6 +15,9 @@ export class UtilisateurService {
   create(data: any): Observable<any> {
     return this.http.post(environment.url + "utilisateur/client", data);
   }
+  createLivreur(data: any, header: any): Observable<any> {
+    return this.http.post<any>(environment.url + "utilisateur/livreur", data,{headers: new HttpHeaders(header)});
+  }
 
   login(data: any): Observable<any> {
     return this.http.post(environment.url + "utilisateur/login", data);
