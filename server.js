@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin: "https://m1p9mean-jacques.herokuapp.com"
 };
 
 app.use(cors(corsOptions));
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 db.mongoose
-  .connect(db.url, {
+  .connect(db.urlprod, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
