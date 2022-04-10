@@ -11,7 +11,7 @@ app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());  
-
+app.use(express.static(process.cwd()+"/dist/angular"));
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,8 +29,11 @@ db.mongoose
     process.exit();
   });
 
-app.get("/", (req, res) => {
+/*app.get("/", (req, res) => {
   res.json({ message: "Bonjour" });
+});*/
+app.get('/', (req,res) => {
+  res.sendFile(process.cwd()+"dist/angular/index.html")
 });
 
 require("./app/routes/utilisateur.routes")(app);
