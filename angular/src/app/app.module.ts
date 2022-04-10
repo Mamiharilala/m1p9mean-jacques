@@ -20,6 +20,7 @@ import { NavBarClientComponent } from './components/nav-bar-client/nav-bar-clien
 import { NavBarEkalyComponent } from './components/nav-bar-ekaly/nav-bar-ekaly.component';
 import { NavBarRestaurantComponent } from './components/nav-bar-restaurant/nav-bar-restaurant.component';
 import { NavBarLivreurComponent } from './components/nav-bar-livreur/nav-bar-livreur.component';
+import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.component';
  @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { NavBarLivreurComponent } from './components/nav-bar-livreur/nav-bar-liv
     NavBarClientComponent,
     NavBarEkalyComponent,
     NavBarRestaurantComponent,
-    NavBarLivreurComponent
+    NavBarLivreurComponent,
+    PlatALivrerComponent
   ],
   imports: [
     BrowserModule,

@@ -123,7 +123,7 @@ exports.livrer = async function (req, res, next) {
         var commande = await restaurantService.findCommande({'_id':req.body.idcommande});
         if(users[0].id!=commande[0].id_livreur) res.status(500).json({ message: "Accès refusé" });      
         await utilisateurService.updateCommande(req.body.idcommande, { booked: true });
-        return res.status(200).json({ status: 200, message: "Livraison effectué" });
+        return res.status(200).json({ status: 200, message: "Livraison effectuée" });
     } catch (e) {
         console.log(e);
         return res.status(200).json({ message: e.message });

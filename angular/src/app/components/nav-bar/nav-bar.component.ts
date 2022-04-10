@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,11 +8,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
   role: string;
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute,private router: Router) { 
     this.role = this.route.snapshot.params['role'];
   }
 
   ngOnInit(): void {
   }
-
+  onLogOut(){
+    localStorage.clear();
+    this.router.navigateByUrl("/");
+  }
 }

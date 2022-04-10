@@ -8,17 +8,20 @@ import { RestaurantListeComponent  } from './components/restaurant-liste/restaur
 import { PlatListeComponent } from './components/plat-liste/plat-liste.component';
 import {  CommandeLivreurComponent } from './components/commande-livreur/commande-livreur.component';
 import { CommandeDeliveredComponent } from './components/commande-delivered/commande-delivered.component';
+import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.component';
 
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
-    { path: 'commande-liste', component: CommandeListeComponent },
+    { path: ':role/commande-liste', component: CommandeListeComponent },
     { path: 'inscription', component: InscriptionComponent },
     { path: 'login', component: LoginComponent },
     { path: '', component: LoginComponent },
-    { path: 'restaurant-liste', component: RestaurantListeComponent},
-    { path: 'commande-livreur', component: CommandeLivreurComponent},
+    { path: ':role/restaurant-liste', component: RestaurantListeComponent},
+    { path: ':role/commande-livreur', component: CommandeLivreurComponent},
     { path: ':role/plat-liste', component: PlatListeComponent},
-    { path: 'commande-livraison', component: CommandeDeliveredComponent}
+    { path: ':role/commande-livraison', component: CommandeDeliveredComponent},
+    { path: ':role/commande-delivered', component: CommandeDeliveredComponent},
+    { path: ':role/plat-a-livrer', component: PlatALivrerComponent}
 ];
 @NgModule({
     imports: [

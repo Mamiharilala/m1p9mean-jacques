@@ -121,7 +121,10 @@ const getPlat = async function (id_plat) {
 
 const createCommande = async function (utilisateur,plat,quantite) {
     try {
-        var commande = new Commande({"id_utilisateur":utilisateur.id,"id_plat" :plat.id,"id_livreur" :null,"quantite":quantite,"pu":plat.prixVente,"id_restaurant":plat.id_restaurant,'nom_client':utilisateur.nom,'nom_plat':plat.designation});
+        var commande = new Commande({"id_utilisateur":utilisateur.id,"id_plat" :plat.id,"id_livreur" :null,
+        'contact_client':utilisateur.contact,
+        'adresse_client':utilisateur.adresse,
+        "quantite":quantite,"pu":plat.prixVente,"id_restaurant":plat.id_restaurant,'nom_client':utilisateur.nom,'nom_plat':plat.designation});
         var commande = await commande.save(commande);
         return commande;
     } catch (e) {

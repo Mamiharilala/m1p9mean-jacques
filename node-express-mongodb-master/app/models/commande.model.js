@@ -9,6 +9,8 @@ module.exports = mongoose => {
             id_restaurant: {type:Schema.Types.ObjectId},
             nom_client: String,
             nom_plat: String,
+            contact_client:String,
+            adresse_client:String,
             quantite: { type: Number, required: true, default: 1 },
             pu: { type: Number, required: true  },
             booked: { type: Boolean, required: true, default: false },
