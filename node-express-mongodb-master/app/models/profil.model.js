@@ -22,3 +22,4 @@ module.exports = mongoose => {
   const Profil = mongoose.model("profil", profil);
   return Profil;
 };
+

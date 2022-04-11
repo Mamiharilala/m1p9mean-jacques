@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     }
   }
   onSubmitForm() {
-    console.log(this.loginForm.value);
     this.utilisateurService.login(this.loginForm.value)
       .subscribe({
         next: (res) => {
