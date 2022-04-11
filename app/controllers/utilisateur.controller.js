@@ -39,6 +39,26 @@ exports.createClient = async function (req, res) {
   }
 };
 
+
+exports.createUtilisateur = async function (req, res) {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
+  const utilisateur = new Utilisateur(req.body);
+  utilisateur.mot_passe = sha1(utilisateur.mot_passe);
+  utilisateur.token = sha1(Date.now());
+  try {
+    await utilisateurService.createUtilisateur(utilisateur);
+    await utilisateurService.sendWelcomeMail(utilisateur.email);
+    res.status(200).send({ data: { token: utilisateur.token }, message: "Utilisateur enregistré" });
+  } catch (error) {
+    res.status(200).send({ data: {}, message: "Utilisateur non enregistré" });
+  }
+};
+
+
 exports.login = async function (req, res) {
   if (!req.body) {
     return res.status(400).send({
@@ -49,8 +69,7 @@ exports.login = async function (req, res) {
   var result = await utilisateurService.login({ contact: req.body.contact, mot_passe: crypt });
   if (result.length > 0) {
     let token = sha1(Date.now());
-    await utilisateurService.updateUser(result[0].id, { "token": token });
-    result[0].token = token;
+    await utilisateurService.updateUser(result[0].id, { token: token });
     var data = await utilisateurService.getProfil(result[0].id_profil);
     result.profil = data;
     return res.status(200).send({
@@ -69,7 +88,6 @@ exports.createCommande = async function (req, res) {
     res.status(200).send({ message: "Page introuvable!" });
     return;
   }
-  console.log(authHeader);
   if (!req.body) {
     return res.status(400).send({
       message: "Les données d'inscription sont obligatoire!"
@@ -82,7 +100,7 @@ exports.createCommande = async function (req, res) {
   if (plat.length == 0) res.status(500).json({ message: "Plat n'existe pas" });
   if (req.body.quantite && Number(req.body.quantite) <= 0) res.status(500).json({ message: "La quantité est invalide" });
   try {
-    var data = await utilisateurService.createCommande(users[0], plat[0], req.body.quantite);
+    await utilisateurService.createCommande(users[0], plat[0], req.body.quantite);
     res.status(200).send({ message: "Commande enregistré" });
   } catch (error) {
     res.status(200).send({ message: "Commande non enregistré" });
@@ -146,6 +164,56 @@ exports.createLivreur = async function (req, res) {
     res.status(200).send({ data: { token: utilisateur.token }, message: "Livreur enregistré" });
   } catch (error) {
     res.status(500).send({ message: "Client non enregistré" });
+  }
+};
+exports.getBeneficeParJour = async function (req, res) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    res.status(400).send({ message: "Page introuvable!" });
+    return;
+  }
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
+  const token = authHeader && authHeader.split(' ')[1];
+  var users = await utilisateurService.findUser({ token: token });
+  var profilEkaly = await utilisateurService.getProfilEkaly();
+   if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+   if (profilEkaly.length == 0) res.status(500).json({ message: "profil ekaly non configuré" });
+  if (users[0].id_profil != profilEkaly[0].id) res.status(500).json({ message: "Vous devez connecter en tant qu'administrateur" });
+
+  try {
+    var data1 = await utilisateurService.getBeneficeParJour();
+    res.status(200).send({ data: data1, message: "Succès" });
+  } catch (error) {
+    res.status(500).send({ message: "Benefice par jour non trouvé" });
+  }
+};
+exports.getBeneficeParRestaurant = async function (req, res) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    res.status(400).send({ message: "Page introuvable!" });
+    return;
+  }
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Les données d'inscription sont obligatoire!"
+    });
+  }
+  const token = authHeader && authHeader.split(' ')[1];
+  var users = await utilisateurService.findUser({ token: token });
+  var profilEkaly = await utilisateurService.getProfilEkaly();
+   if (users.length == 0) res.status(500).json({ message: "Utilisateur n'existe pas" });
+   if (profilEkaly.length == 0) res.status(500).json({ message: "profil ekaly non configuré" });
+  if (users[0].id_profil != profilEkaly[0].id) res.status(500).json({ message: "Vous devez connecter en tant qu'administrateur" });
+
+  try {
+    var data1 = await utilisateurService.getBeneficeParRestaurant();
+    res.status(200).send({ data: data1, message: "Succès" });
+  } catch (error) {
+    res.status(500).send({ message: "Benefice par restaurant non trouvé" });
   }
 };
 /*

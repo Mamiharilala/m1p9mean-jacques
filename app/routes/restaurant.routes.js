@@ -5,7 +5,9 @@ module.exports = app => {
   
     router.post("/", restaurant.createRestaurant);
     router.get("/", restaurant.findAll);
-
+    router.get("/plats", restaurant.getPlatRestaurant);
+    router.get("/benefice", restaurant.getBeneficeRestaurant);
+    
     app.use("/api/restaurant", router);
   };
   

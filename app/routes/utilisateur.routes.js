@@ -7,6 +7,9 @@ module.exports = app => {
   router.post("/login",utilisateur.login);
   router.post("/commande",utilisateur.createCommande);
   router.post("/livreur",utilisateur.createLivreur);
+  router.post("/",utilisateur.createUtilisateur);
+  router.get("/beneficeparjour",utilisateur.getBeneficeParJour);
+  router.get("/beneficeparrestaurant",utilisateur.getBeneficeParRestaurant);
 
   //router.get("/:id", utilisateur.findOne);
  

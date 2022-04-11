@@ -47,6 +47,7 @@ exports.findPlatLivrer = async function (req, res, next) {
         let plats = await utilisateurService.findPlatLivrer(users[0].id );
         return res.status(200).json({ status: 200, data: plats, message: "Succès" });
     } catch (e) {
+        console.log(e);
          return res.status(200).json({status:500, message: e.message });
     }
 };

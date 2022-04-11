@@ -87,7 +87,7 @@ const getCommandeNontAssigned = async function () {
 };
 const findCommandeEnCours = async function (id) {
     try {
-        var commande = Commande.find({ "id_restaurant": id }).exec();
+        var commande = Commande.find({ "id_restaurant": id,"booked":false }).exec();
         return commande;
     } catch (e) {
         throw Error("Erreur de recherche de commande");

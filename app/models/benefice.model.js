@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 module.exports = mongoose => {
-    var commande = mongoose.Schema(
+    var benefice = mongoose.Schema(
         {
             id_utilisateur: { type: Schema.Types.ObjectId , required: true },
             id_plat: { type: Schema.Types.ObjectId , required: true },
@@ -9,22 +9,20 @@ module.exports = mongoose => {
             id_restaurant: {type:Schema.Types.ObjectId},
             nom_client: String,
             nom_plat: String,
-            contact_client:String,
-            adresse_client:String,
-            quantite: { type: Number, required: true, default: 1 },
-            pu: { type: Number, required: true  },
-            booked: { type: Boolean, required: true, default: false },
+            nom_restaurant: String,
+            nom_livreur: String,
+            benefice: { type: Number, required: true, default: 0 },
             etat: { type: Boolean, required: true, default: true }
         },
         { timestamps: true }
     );
 
-    commande.method("toJSON", function () {
+    benefice.method("toJSON", function () {
         const { __v, _id, ...object } = this.toObject();
         object.id = _id;
         return object;
     });
 
-    const Commande = mongoose.model("commande", commande );
-    return Commande;
+    const Benefice = mongoose.model("benefice", benefice );
+    return Benefice;
 };
