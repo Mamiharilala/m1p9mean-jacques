@@ -12,6 +12,8 @@ import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.c
 import { LivreurCreateComponent } from './components/livreur-create/livreur-create.component';
 import { CommandeEnCoursComponent } from './components/commande-en-cours/commande-en-cours.component';
 import { PlatRestaurantComponent } from './components/plat-restaurant/plat-restaurant.component';
+import { PlatCreateComponent } from './components/plat-create/plat-create.component';
+import { RestaurantCreateComponent } from './components/restaurant-create/restaurant-create.component';
 
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
@@ -27,7 +29,11 @@ const routes: Routes = [
     { path: ':role/plat-a-livrer', component: PlatALivrerComponent},
     { path: ':role/livreur-create', component: LivreurCreateComponent},
     { path: ':role/commande-en-cours', component: CommandeEnCoursComponent},
-    { path: ':role/restaurant-plat', component: PlatRestaurantComponent}
+    { path: ':role/restaurant-plat', component: PlatRestaurantComponent},
+    { path: ':role/plat-create', component: PlatCreateComponent},
+    { path: ':role/restaurant-create', component: RestaurantCreateComponent}
+
+
 ];
 @NgModule({
     imports: [

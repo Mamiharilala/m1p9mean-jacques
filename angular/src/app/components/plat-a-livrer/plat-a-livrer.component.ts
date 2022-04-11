@@ -17,23 +17,24 @@ export class PlatALivrerComponent implements OnInit {
   message: string;
    
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private utilisateurService: UtilisateurService) {
-     
     this.message = "";
   }
 
   ngOnInit(): void {
+    this.onPlats();
+  }
+  onPlats(){
     const headers = { 'Authorization': '' + localStorage.getItem("token") };
     this.utilisateurService.getPlatALivrer(headers).subscribe(res => {
       this.platListe = res['data'];
-      console.log(this.platListe);
-    });
+     });
   }
   onLivrer(i: any) {
     var body = {   "idcommande": i };
     const headers = { 'Authorization': '' + localStorage.getItem("token") };
     this.utilisateurService.livrerPlat(body,  headers ).subscribe(data => {
       this.message = data['message'];
-      console.log(data);
+      this.onPlats();
     });
     setTimeout(() => {
       this.message = "";

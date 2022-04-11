@@ -67,6 +67,7 @@ export class CommandeLivreurComponent implements OnInit {
  		const headers = { 'Authorization': '' + localStorage.getItem("token") };
 		this.utilisateurService.assignLivreur({idcommande:plat['_id'],idlivreur:this.results[0]['id']},headers).subscribe(res => {
 			this.message = res['message'];
+			this.onFindAllNotAssigned();
 			setTimeout(() => {
 				this.message = "";
 			   }, 3000);

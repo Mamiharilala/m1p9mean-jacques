@@ -24,6 +24,8 @@ import { PlatALivrerComponent } from './components/plat-a-livrer/plat-a-livrer.c
 import { LivreurCreateComponent } from './components/livreur-create/livreur-create.component';
 import { CommandeEnCoursComponent } from './components/commande-en-cours/commande-en-cours.component';
 import { PlatRestaurantComponent } from './components/plat-restaurant/plat-restaurant.component';
+import { PlatCreateComponent } from './components/plat-create/plat-create.component';
+import { RestaurantCreateComponent } from './components/restaurant-create/restaurant-create.component';
  @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { PlatRestaurantComponent } from './components/plat-restaurant/plat-resta
     PlatALivrerComponent,
     LivreurCreateComponent,
     CommandeEnCoursComponent,
-    PlatRestaurantComponent
+    PlatRestaurantComponent,
+    PlatCreateComponent,
+    RestaurantCreateComponent
   ],
   imports: [
     BrowserModule,

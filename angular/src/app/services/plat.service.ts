@@ -15,7 +15,8 @@ export class PlatService {
    
  
   getAll(header:any) :Observable<any>{
-    return this.http.get(environment.url+"restaurant/plats",{headers: new HttpHeaders(header)});
+     return this.http.get(environment.url+"plat",{headers: new HttpHeaders(header)});
+    //return this.http.get(environment.url+"restaurant/plats",{headers: new HttpHeaders(header)});
   }
 
   getAllNotAssigned(headers:any) :Observable<any>{

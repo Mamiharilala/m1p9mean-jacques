@@ -1,0 +1,50 @@
+<app-nav-bar></app-nav-bar>
+<br />
+<body>
+    <br />
+    <div class="row">
+        <div class="col-xs-4 col-md-4"></div>
+        <div class="col-xs-3 col-md-4">
+            <!-- Card -->
+            <div class="card">
+                <!-- Card body -->
+                <div class="card-body">
+                    <!-- Material form register -->
+                    <form [formGroup]="platForm">
+                        <p class="h4 text-center py-4">Ajouter plat</p>
+                        <div class="alert alert-info" role="alert" *ngIf="message.length>0">
+                            {{message}}
+                          </div>
+                        <!-- Material input text -->
+                        <div class="md-form">
+                            <label for="materialFormCardNameEx" class="font-weight-light">Designation</label>
+                            <input type="text" id="materialFormCardNameEx" formControlName="designation" class="form-control">
+                        </div>
+                        <div class="md-form">
+                            <label for="materialFormCardNameEx" class="font-weight-light">Prix d'achat</label>
+                            <input type="number" min = 0 id="materialFormCardNameEx" formControlName="prixAchat"
+                                class="form-control">
+                        </div>
+                        <div class="md-form">
+                            <label for="materialFormCardNameEx" class="font-weight-light">Prix de vente</label>
+                            <input type="number" min=0 id="materialFormCardNameEx" formControlName="prixVente"
+                                class="form-control">
+                        </div>
+                        <div class="alert alert-info" role="alert" *ngIf="message.length>0">
+                            {{message}}
+                          </div>
+                        <div class="text-center py-4 mt-3">
+                            <button class="btn btn-cyan" (click)="onSubmitForm()" [disabled]="platForm.invalid"
+                                type="submit">Ajouter</button>
+                        </div>
+                    </form>
+
+                </div>
+ 
+            </div>
+ 
+        </div>
+         
+    </div>
+</body>
+<app-footer></app-footer>
