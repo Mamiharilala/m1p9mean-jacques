@@ -26,6 +26,9 @@ import { CommandeEnCoursComponent } from './components/commande-en-cours/command
 import { PlatRestaurantComponent } from './components/plat-restaurant/plat-restaurant.component';
 import { PlatCreateComponent } from './components/plat-create/plat-create.component';
 import { RestaurantCreateComponent } from './components/restaurant-create/restaurant-create.component';
+import { BeneficeRestaurantComponent } from './components/benefice-restaurant/benefice-restaurant.component';
+import { BeneficeParjourComponent } from './components/benefice-parjour/benefice-parjour.component';
+import { BeneficeParrestaurantComponent } from './components/benefice-parrestaurant/benefice-parrestaurant.component';
  @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,10 @@ import { RestaurantCreateComponent } from './components/restaurant-create/restau
     CommandeEnCoursComponent,
     PlatRestaurantComponent,
     PlatCreateComponent,
-    RestaurantCreateComponent
+    RestaurantCreateComponent,
+    BeneficeRestaurantComponent,
+    BeneficeParjourComponent,
+    BeneficeParrestaurantComponent
   ],
   imports: [
     BrowserModule,

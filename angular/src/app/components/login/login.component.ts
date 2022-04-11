@@ -36,8 +36,17 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res['data']['utilisateur'] && res['data']['profil']) {
             localStorage.setItem('token', res['data']['utilisateur']['token']);
-            localStorage.setItem('role', res['data']['profil'][0]['designation']);
-            this.router.navigateByUrl("/"+localStorage.getItem('role')+"/plat-liste");
+            var role = res['data']['profil'][0]['designation'];
+            localStorage.setItem('role', role);
+            if(role=="Restaurant"){
+              this.router.navigateByUrl("/"+localStorage.getItem('role')+"/benefice-restaurant");
+            }else if(role=="Livreur"){
+              this.router.navigateByUrl("/"+localStorage.getItem('role')+"/plat-a-livrer");
+            }else if(role=="Client"){
+              this.router.navigateByUrl("/"+localStorage.getItem('role')+"/plat-liste");
+            }else{
+              this.router.navigateByUrl("/"+localStorage.getItem('role')+"/commande-livreur");
+            }
            }else{
             this.onErrorAuth();
           }

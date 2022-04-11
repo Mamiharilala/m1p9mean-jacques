@@ -24,7 +24,10 @@ export class NavBarEkalyComponent implements OnInit {
   onRestaurant(){
     this.router.navigateByUrl("/"+localStorage.getItem('role')+"/restaurant-create");
   }
-  onBenefice(){
-    //this.router.navigateByUrl("/"+localStorage.getItem('role')+"/commande-livreur");
+  onBeneficeJ(){
+    this.router.navigateByUrl("/"+localStorage.getItem('role')+"/benefice-parjour");
+  }
+  onBeneficeR(){
+    this.router.navigateByUrl("/"+localStorage.getItem('role')+"/benefice-parrestaurant");
   }
 }

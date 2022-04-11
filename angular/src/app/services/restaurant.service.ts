@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import{Utilisateur}from '../models/utilisateur.model';
- import { HttpClient ,HttpHeaders,HttpErrorResponse, } from '@angular/common/http';
+import { Utilisateur } from '../models/utilisateur.model';
+import { HttpClient, HttpHeaders, HttpErrorResponse, } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {environment} from '../../environments/environment';
- 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +13,19 @@ export class RestaurantService {
     // vos FaceSnap ici
   ]
   constructor(private http: HttpClient) { }
-   
-  getAll() :Observable<any>{
-    return this.http.get(environment.url+"restaurant",{ headers: this.httpHeaders });
+
+  getAll(): Observable<any> {
+    return this.http.get(environment.url + "restaurant", { headers: this.httpHeaders });
+  }
+  getBenefice(header: any): Observable<any> {
+    return this.http.get(environment.url + "restaurant/benefice", { headers: new HttpHeaders(header) });
+  }
+  getBeneficeParRestaurant(header: any): Observable<any> {
+    return this.http.get(environment.url + "utilisateur/beneficeparrestaurant", { headers: new HttpHeaders(header) });
+  }
+  getBeneficeParJour(header: any): Observable<any> {
+    return this.http.get(environment.url + "utilisateur/beneficeparjour", { headers: new HttpHeaders(header) });
   }
   
+
 }

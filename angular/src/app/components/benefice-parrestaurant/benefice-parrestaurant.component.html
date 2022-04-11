@@ -1,0 +1,37 @@
+<app-nav-bar></app-nav-bar>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+<body>
+    <main>
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div id="top" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col" *ngFor="let benefice of beneficeList ; let i = index">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title">Benefice</h5>
+                              <a class="card-link">{{benefice._id}}</a>
+                              <a class="card-link">{{benefice.benefice}} Ar</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<app-footer></app-footer>

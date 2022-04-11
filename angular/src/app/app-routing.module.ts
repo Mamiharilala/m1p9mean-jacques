@@ -14,6 +14,9 @@ import { CommandeEnCoursComponent } from './components/commande-en-cours/command
 import { PlatRestaurantComponent } from './components/plat-restaurant/plat-restaurant.component';
 import { PlatCreateComponent } from './components/plat-create/plat-create.component';
 import { RestaurantCreateComponent } from './components/restaurant-create/restaurant-create.component';
+import { BeneficeRestaurantComponent } from './components/benefice-restaurant/benefice-restaurant.component';
+import { BeneficeParjourComponent } from './components/benefice-parjour/benefice-parjour.component';
+import { BeneficeParrestaurantComponent } from './components/benefice-parrestaurant/benefice-parrestaurant.component';
 
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
@@ -31,9 +34,10 @@ const routes: Routes = [
     { path: ':role/commande-en-cours', component: CommandeEnCoursComponent},
     { path: ':role/restaurant-plat', component: PlatRestaurantComponent},
     { path: ':role/plat-create', component: PlatCreateComponent},
-    { path: ':role/restaurant-create', component: RestaurantCreateComponent}
-
-
+    { path: ':role/restaurant-create', component: RestaurantCreateComponent},
+    { path: ':role/benefice-restaurant', component: BeneficeRestaurantComponent},
+    { path: ':role/benefice-parjour', component: BeneficeParjourComponent},
+    { path: ':role/benefice-parrestaurant', component: BeneficeParrestaurantComponent}
 ];
 @NgModule({
     imports: [

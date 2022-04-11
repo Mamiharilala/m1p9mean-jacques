@@ -21,6 +21,9 @@ export class NavBarRestaurantComponent implements OnInit {
   onVisibility(){
     this.router.navigateByUrl("/"+localStorage.getItem('role')+"/restaurant-plat");
   }
+  onBenefice(){
+    this.router.navigateByUrl("/"+localStorage.getItem('role')+"/benefice-restaurant");
+  }
  
  
 }
