@@ -29,7 +29,7 @@ import { RestaurantCreateComponent } from './components/restaurant-create/restau
 import { BeneficeRestaurantComponent } from './components/benefice-restaurant/benefice-restaurant.component';
 import { BeneficeParjourComponent } from './components/benefice-parjour/benefice-parjour.component';
 import { BeneficeParrestaurantComponent } from './components/benefice-parrestaurant/benefice-parrestaurant.component';
- @NgModule({
+  @NgModule({
   declarations: [
     AppComponent,
     EKalyComponent,
@@ -56,7 +56,7 @@ import { BeneficeParrestaurantComponent } from './components/benefice-parrestaur
     BeneficeRestaurantComponent,
     BeneficeParjourComponent,
     BeneficeParrestaurantComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     RouterModule,

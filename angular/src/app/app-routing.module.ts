@@ -17,7 +17,7 @@ import { RestaurantCreateComponent } from './components/restaurant-create/restau
 import { BeneficeRestaurantComponent } from './components/benefice-restaurant/benefice-restaurant.component';
 import { BeneficeParjourComponent } from './components/benefice-parjour/benefice-parjour.component';
 import { BeneficeParrestaurantComponent } from './components/benefice-parrestaurant/benefice-parrestaurant.component';
-
+ 
 const routes: Routes = [
     { path: 'e-kaly', component: EKalyComponent },
     { path: ':role/commande-liste', component: CommandeListeComponent },
@@ -38,6 +38,7 @@ const routes: Routes = [
     { path: ':role/benefice-restaurant', component: BeneficeRestaurantComponent},
     { path: ':role/benefice-parjour', component: BeneficeParjourComponent},
     { path: ':role/benefice-parrestaurant', component: BeneficeParrestaurantComponent}
+ 
 ];
 @NgModule({
     imports: [
