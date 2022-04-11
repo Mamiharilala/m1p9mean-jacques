@@ -14,12 +14,12 @@ export class PlatRestaurantComponent implements OnInit {
   platListe: any[] = [
     // vos FaceSnap ici
   ];
-   
+  tradVisibity = {true:'Oui', false:'Non'};
   message: string;
   platForm!: FormGroup;
   constructor(private http: HttpClient,  private route: ActivatedRoute,private platService: PlatService, private formBuilder: FormBuilder, private utilisateurService: UtilisateurService) {
     this.platForm = this.formBuilder.group({
-      quantite: [null]
+      visibility: [null]
     });
     this.message = "";
   }
@@ -30,11 +30,13 @@ export class PlatRestaurantComponent implements OnInit {
       console.log(res['data']);
     });
   }
-  onBuyPlat(i: any) {
-    var body = { "quantite": this.platForm.value.quantite, "id_plat": this.platListe[i].id };
+  onChange(id: any) {
+    console.log(id);
+    var body = { "visibility": this.platForm.value.visibility, "id_plat": id};
     const headers = { 'Authorization': '' + localStorage.getItem("token") };
-    this.utilisateurService.buyPlat(body, { headers }).subscribe(data => {
+    this.platService.changerVisilite(body,  headers ).subscribe(data => {
       this.message = data['message'];
+      this.platListe = data['data'];
     });
     setTimeout(() => {
       this.message = "";

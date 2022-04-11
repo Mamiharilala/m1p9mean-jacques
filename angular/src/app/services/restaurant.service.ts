@@ -17,4 +17,5 @@ export class RestaurantService {
   getAll() :Observable<any>{
     return this.http.get(environment.url+"restaurant",{ headers: this.httpHeaders });
   }
+  
 }

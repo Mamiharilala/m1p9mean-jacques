@@ -62,11 +62,16 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group mb-3">
                       <span class="input-group-text border-0">Visible</span>
-                      <input type="number" formControlName="quantite" min="1" class="form-control rounded" />
+                       <select class="form-select" formControlName="visibility" aria-label="Default select example">
+                        <option value="true" [selected]="plat.visibility ? true : null">Oui</option>
+                        <option value="false" [selected]="!plat.visibility ? true : null">Non</option>
+
+                      </select>
                       <span class="input-group-text border-0"></span>
-                      <button type="button" (click)="onBuyPlat(i)"
+                      <button type="button" (click)="onChange(plat.id)"
                         class="btn btn-sm btn-outline-secondary">Changer</button>
                     </div>
+                    
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     

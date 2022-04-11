@@ -21,5 +21,9 @@ export class PlatService {
   getAllNotAssigned(headers:any) :Observable<any>{
     return this.http.get(environment.url+"plat/commandesnotassigned",headers);
   }
+  changerVisilite(data: any, header: any): Observable<any> {
+    return this.http.put<any>(environment.url + "plat/update", data, {headers: new HttpHeaders(header)});
+  }
+ 
   
 }

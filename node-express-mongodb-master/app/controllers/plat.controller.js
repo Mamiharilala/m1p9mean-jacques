@@ -73,12 +73,13 @@ exports.findCommandeEnCours = async function (req, res, next) {
 };
 exports.updateVisibility = async function (req, res, next) {
     const authHeader = req.headers['authorization'];
+    console.log(authHeader);
     if (!authHeader) {
-        res.status(400).send({ message: "Page introuvable!" });
+        res.status(200).send({ message: "Page introuvable!" });
         return;
     }
     if (!req.body) {
-        return res.status(400).send({
+        return res.status(200).send({
             message: "Les données d'inscription sont obligatoire!"
         });
     }
@@ -94,9 +95,9 @@ exports.updateVisibility = async function (req, res, next) {
         if(users[0].id!=plat[0].id_restaurant) res.status(500).json({ message: "Accès refusé" });
         await restaurantService.updatePlat(plat[0].id,{visibility:req.body.visibility});
         plat = await restaurantService.getPlat(req.body.id_plat);
-        return res.status(200).json({ status: 200, data: plat, message: "Succès" });
+        return res.status(200).send({ status: 200, data: plat, message: "Succès" });
     } catch (e) {
-        return res.status(200).json({ message: e.message });
+        return res.status(200).send({ message: e.message });
     }
 };
 exports.livrer = async function (req, res, next) {
