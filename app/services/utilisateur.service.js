@@ -53,7 +53,7 @@ const getProfilLivreur = async function () {
 };
 const getProfil = async function (id_profil) {
     try {
-        var profil = await Profil.find(new Profil({ _id: id_profil })).exec();
+        var profil = await Profil.find({ _id: id_profil }).exec();
         return profil;
     } catch (e) {
         throw Error("Erreur de recherche de profil")

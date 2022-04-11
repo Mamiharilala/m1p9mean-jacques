@@ -71,15 +71,19 @@ exports.login = async function (req, res) {
     let token = sha1(Date.now());
     await utilisateurService.updateUser(result[0].id, { token: token });
     var data = await utilisateurService.getProfil(result[0].id_profil);
+    console.log(data);
+
     result.profil = data;
     return res.status(200).send({
       data: { utilisateur: { "token": "Barear " + token }, profil: result.profil },
       message: "Succès"
     });
+  }else{
+    return res.status(200).send({
+      message: "Donnée d'authentification incorrecte"
+    });
   }
-  return res.status(500).send({
-    message: "Donnée d'authentification incorrecte"
-  });
+  
 };
 
 exports.createCommande = async function (req, res) {
