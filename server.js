@@ -4,7 +4,8 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: ["https://m1p9mean-jacques.herokuapp.com","http://localhost:8087"]
+  origin: ["https://m1p9mean-jacques.herokuapp.com","http://localhost:8087"],
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
